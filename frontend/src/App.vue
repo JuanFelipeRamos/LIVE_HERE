@@ -1,28 +1,29 @@
 <script setup>
-import Home from './views/Home.vue'
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
   <div>
-  <nav>
-    <router-link to="/">Inicio</router-link>
-  </nav>
-  <router-view />
+    <RouterView />
 </div>
 </template>
 
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+body {
+  background-color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  color: black;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+
 </style>
