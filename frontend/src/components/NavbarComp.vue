@@ -14,9 +14,15 @@
           <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="lupa" />
         </button>
       </div>
+      <div class="middle-link">
+        <a href="#">CATEGORÍAS</a>
+      </div>
       <ul class="nav-links">
-        <li><a href="#">CATEGORÍAS</a></li>
-        <li><a href="#">INICIAR SESIÓN</a></li>
+        <li>
+          <router-link to="/Login">
+            <a>INICIAR SESIÓN</a>
+          </router-link>
+        </li>
       </ul>
     </div>
   </nav>
@@ -46,8 +52,6 @@
 .logo {
   display: flex;
   align-items: center;
-  font-size: 1.5rem;
-  font-weight: bold;
 }
 
 .imgLogo {
@@ -63,14 +67,19 @@
   width: 40%;
   max-width: 450px;
   position: relative;
+  margin-left: 90px;
 }
 
 .search-bar input {
   border: none;
   outline: none;
-  padding: 8px;
+  padding: 3px;
   flex-grow: 1;
   font-size: 1rem;
+}
+
+.search-bar input::placeholder {
+  font-size: 14px;
 }
 
 .search-bar button {
@@ -94,16 +103,42 @@
   color: rgb(90, 90, 90);
 }
 
+.middle-link {
+  flex: 1;
+  text-align: center;
+}
+
+.middle-link a,
+.nav-links a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: white;
+  transition: color 0.3s ease-in-out;
+}
+
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px;
   font-size: 1rem;
 }
 
-.nav-links a {
-  color: white;
-  text-decoration: none;
+.middle-link a:hover,
+.nav-links a:hover {
+  color: #4A90E2;
+}
+
+.middle-link a:active,
+.nav-links a:active {
+  color: #9dc2ff;
+}
+
+input {
+  background-color: white;
+  border-radius: 22px;
+  width: 100%;
+  color: black;
+  outline: none;
+  padding: 12px 35px 12px 10px;
 }
 
 /* Responsivo */
@@ -116,6 +151,10 @@
   .search-bar {
     width: 100%;
     max-width: 400px;
+    margin-top: 10px;
+  }
+
+  .middle-link {
     margin-top: 10px;
   }
 
@@ -138,6 +177,10 @@
     margin-top: 10px;
   }
 
+  .middle-link {
+    margin-top: 10px;
+  }
+
   .nav-links {
     flex-direction: column;
     gap: 10px;
@@ -145,12 +188,5 @@
   }
 }
 
-input {
-  background-color: white;
-  border-radius: 22px;
-  width: 100%;
-  color: black;
-  outline: none;
-  padding: 12px 35px 12px 10px;
-}
+
 </style>
