@@ -3,6 +3,7 @@
 import os
 import sys
 
+sys.path.append(os.path.join(os.path.dirname(__file__), "apps"))
 
 def main():
     """Run administrative tasks."""
@@ -16,7 +17,6 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-
 
 if __name__ == '__main__':
     main()

@@ -1,4 +1,39 @@
 <script setup>
+import { ref } from 'vue';
+import api from '../services/axios';
+
+//const errorMsg = ref("");
+
+const usuario = ref({
+  username: "",
+  first_name: "",
+  last_name: "",
+  email: "",
+  telefono: "",
+  password: ""
+});
+
+const registrarUsuario = async (e) => {
+  e.preventDefault()
+
+  try {
+    const response = await api.post('/usuarios/', usuario.value)
+    alert('Usuario registrado exitosamente.')
+    //console.log('Respuesta del backend:', response.data)
+
+    usuario.value = {
+      username: '',
+      first_name: '',
+      last_name: '',
+      email: '',
+      telefono: '',
+      password: ''
+    }
+  } catch (error) {
+    alert('Ocurrió un error al registrar el usuario.')
+    console.error('Error al registrar:', error)
+  }
+}
 
 </script>
 
@@ -10,40 +45,48 @@
         <font-awesome-icon :icon="['fas', 'user']" class="user-icon" />
       </div>
       <h2>REGÍSTRATE</h2>
-
-      <form>
+      <form @submit.prevent="registrarUsuario">
         <label for="username">Nombre de usuario</label>
-        <input type="text" id="username" required />
+        <input v-model="usuario.username" type="text" id="username" required />
 
         <div class="name-row">
           <div class="name-column">
             <label for="first-name">Nombres</label>
-            <input type="text" id="first-name" required />
+            <input v-model="usuario.first_name" type="text" id="first-name" />
           </div>
           <div class="name-column">
             <label for="last-name">Apellidos</label>
-            <input type="text" id="last-name" />
+            <input v-model="usuario.last_name" type="text" id="last-name" />
           </div>
         </div>
 
-        <label for="email">Correo electrónico</label>
-        <input type="email" id="email" required />
+        <div class="name-row">
+          <div class="name-column">
+            <label for="email">Correo electrónico</label>
+            <input v-model="usuario.email" type="email" id="email" required />
+          </div>
+          <div class="name-column">
+            <label for="phone">Teléfono</label>
+            <input v-model="usuario.telefono" type="tel" id="phone" required />
+          </div>
+        </div>
 
         <label for="password">Contraseña</label>
-        <input type="password" id="password" required />
+        <input v-model="usuario.password" type="password" id="password" required />
 
         <button class="login-btn">Continuar</button>
       </form>
 
       <p class="register-text">
-        ¿No tienes cuenta?
-        <router-link to="Register">
-          <a class="register-link">Regístrate aquí</a>
+        ¿Ya tienes una cuenta?
+        <router-link to="Login">
+          <a class="register-link">Inicia sesión aquí</a>
         </router-link>
       </p>
     </div>
   </div>
 </template>
+
 
 <style scoped>
 html,

@@ -18,4 +18,4 @@ class RegistroUsuarioSerializer(serializers.ModelSerializer):
 class PerfilUsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'telefono']
+        fields = ['id', 'img_profile', 'username', 'first_name', 'last_name', 'email', 'telefono']

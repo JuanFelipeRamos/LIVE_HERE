@@ -4,6 +4,7 @@ from django.db import models
 
 class Usuario(AbstractUser):
     telefono = models.CharField(max_length=15)
+    img_profile = models.ImageField(upload_to="ImagenesPerfil", null=True, blank=True)
     """
     Campos que trae este modelo por defecto:
     username
@@ -20,3 +21,7 @@ class Usuario(AbstractUser):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+    
+    class Meta:
+        verbose_name = "Usuario"
+        verbose_name_plural = "Usuarios"
