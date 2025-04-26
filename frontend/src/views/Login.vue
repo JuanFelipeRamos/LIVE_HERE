@@ -1,41 +1,74 @@
-<script>
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router' // Para la navegación entre rutas
+import api from '../services/axios'
 
+const router = useRouter()
+const usuario = ref({
+  username: '',
+  password: ''
+})
+
+const login = async () => {
+  try {
+    const response = await api.post('/token/', {
+      username: usuario.value.username,
+      password: usuario.value.password,
+    })
+
+    localStorage.setItem('access', response.data.access)
+    localStorage.setItem('refresh', response.data.refresh)
+
+    const userResponse = await api.get('/usuarios/me/', {
+      headers: {
+        Authorization: `Bearer ${response.data.access}`
+      }
+    })
+    localStorage.setItem('user', JSON.stringify(userResponse.data))
+
+    alert('Inicio de sesión exitoso')
+    router.push('/') // Redirigir a la página de inicio
+  } catch (error) {
+    alert('Error al iniciar sesión')
+    console.error(error)
+  }
+}
 </script>
 
-
 <template>
-    <div class="login-container">
-      <div class="login-box">
-        <div class="icon-container">
-          <font-awesome-icon :icon="['fas', 'user']" class="user-icon" />
-        </div>
-        <h2>INICIA SESIÓN</h2>
-        
-        <form>
-          <label for="username">Nombre de usuario o correo electrónico</label>
-          <input type="text" id="username" required placeholder="sucorreo@gmail.com" />
-  
-          <label for="password">Contraseña</label>
-          <input type="password" id="password" required placeholder="" />
-  
-          <div class="options">
-            <label class="checkbox-container">
-              <input type="checkbox" />
-              <span class="checkmark"></span>
-              <span class="check">Recordar contraseña</span>
-            </label>
-            <a href="#" class="forgot-password">¿Olvidó su contraseña?</a>
-          </div>
-  
-          <button class="login-btn">Continuar</button>
-        </form>
-  
-        <p class="register-text">
-          ¿No tienes cuenta? <router-link to="Register"><a class="register-link">Regístrate aquí</a></router-link>
-        </p>
+  <div class="login-container">
+    <div class="login-box">
+      <div class="icon-container">
+        <font-awesome-icon :icon="['fas', 'user']" class="user-icon" />
       </div>
+      <h2>INICIA SESIÓN</h2>
+      <form @submit.prevent="login">
+        <label for="username">Nombre de usuario o correo electrónico</label>
+        <input v-model="usuario.username" type="text" id="username" required placeholder="sucorreo@gmail.com" />
+
+        <label for="password">Contraseña</label>
+        <input v-model="usuario.password" type="password" id="password" required />
+
+        <div class="options">
+          <label class="checkbox-container">
+            <input type="checkbox" />
+            <span class="checkmark"></span>
+            <span class="check">Recordar contraseña</span>
+          </label>
+          <a href="#" class="forgot-password">¿Olvidó su contraseña?</a>
+        </div>
+
+        <button class="login-btn">Continuar</button>
+      </form>
+
+      <p class="register-text">
+        ¿No tienes cuenta?
+        <router-link to="Register"><a class="register-link">Regístrate aquí</a></router-link>
+      </p>
     </div>
-  </template>
+  </div>
+</template>
+
   
   <style scoped>
 

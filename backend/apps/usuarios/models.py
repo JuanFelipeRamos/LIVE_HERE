@@ -19,6 +19,9 @@ class Usuario(AbstractUser):
     etc.
     """
 
+    USERNAME_FIELD = 'username' # Campo que se usará para el login
+    REQUIRED_FIELDS = ['email', 'telefono'] # Para que al crear un superusuario se pidan estos campos
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
     

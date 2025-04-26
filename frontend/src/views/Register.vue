@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router' // Para la navegación entre rutas
 import api from '../services/axios';
 
-//const errorMsg = ref("");
-
+const router = useRouter()
 const usuario = ref({
   username: "",
   first_name: "",
@@ -19,7 +19,6 @@ const registrarUsuario = async (e) => {
   try {
     const response = await api.post('/usuarios/', usuario.value)
     alert('Usuario registrado exitosamente.')
-    //console.log('Respuesta del backend:', response.data)
 
     usuario.value = {
       username: '',
@@ -29,6 +28,8 @@ const registrarUsuario = async (e) => {
       telefono: '',
       password: ''
     }
+
+    router.push('/') // Redirigir a la página de inicio
   } catch (error) {
     alert('Ocurrió un error al registrar el usuario.')
     console.error('Error al registrar:', error)

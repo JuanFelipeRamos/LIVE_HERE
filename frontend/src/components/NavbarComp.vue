@@ -1,5 +1,21 @@
 <script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
+const isLoggedIn = ref(false)
+const router = useRouter()
+
+onMounted(() => {
+  const token = localStorage.getItem('access')
+  isLoggedIn.value = !!token
+})
+
+function logout() {
+  localStorage.removeItem('access')
+  localStorage.removeItem('refresh')
+  isLoggedIn.value = false
+  router.push('/')
+}
 </script>
 
 <template>
@@ -14,19 +30,34 @@
           <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="lupa" />
         </button>
       </div>
+
+      <!-- Si SÍ está logueado -->
+      <div class="middle-link" v-if="isLoggedIn">
+        <a href="#">PUBICAR</a>
+      </div>
+
       <div class="middle-link">
         <a href="#">CATEGORÍAS</a>
+        <!-- <font-awesome-icon :icon="['fas', 'caret-down']" /> -->
       </div>
-      <ul class="nav-links">
+
+      <!-- Si NO está logueado -->
+      <ul class="nav-links" v-if="!isLoggedIn">
         <li>
           <router-link to="/Login">
             <a>INICIAR SESIÓN</a>
           </router-link>
         </li>
       </ul>
+
+      <!-- Si SÍ está logueado -->
+      <div class="middle-link" v-else>
+        <a href="#" @click="logout">CERRAR SESIÓN</a>
+      </div>
     </div>
   </nav>
 </template>
+
 
 <style scoped>
 .navbar {

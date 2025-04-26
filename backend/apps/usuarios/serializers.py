@@ -14,6 +14,13 @@ class RegistroUsuarioSerializer(serializers.ModelSerializer):
         fields = ['username', 'first_name', 'last_name', 'email', 'telefono', 'password']
         extra_kwargs = {'password': {'write_only': True}} #El campo password no se mostrara en la respuesta del serializer
 
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        user = Usuario(**validated_data)
+        user.set_password(password)  # Aquí se encripta la contraseña
+        user.save()
+        return user
+
 #Para visualizar el perfil del usuario
 class PerfilUsuarioSerializer(serializers.ModelSerializer):
     class Meta:
