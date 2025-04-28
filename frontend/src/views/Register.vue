@@ -17,8 +17,8 @@ const registrarUsuario = async (e) => {
   e.preventDefault()
 
   try {
-    const response = await api.post('/usuarios/', usuario.value)
-    alert('Usuario registrado exitosamente.')
+    const response = await api.post('/registro/', usuario.value)
+    alert('Registro de usuario exitoso, ya puedes iniciar sesión.')
 
     usuario.value = {
       username: '',
@@ -29,7 +29,7 @@ const registrarUsuario = async (e) => {
       password: ''
     }
 
-    router.push('/') // Redirigir a la página de inicio
+    router.push('/Login') // Redirigir a la página de inicio de sesión
   } catch (error) {
     alert('Ocurrió un error al registrar el usuario.')
     console.error('Error al registrar:', error)

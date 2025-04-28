@@ -21,6 +21,7 @@ class RegistroUsuarioSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+
 #Para visualizar el perfil del usuario
 class PerfilUsuarioSerializer(serializers.ModelSerializer):
     class Meta:

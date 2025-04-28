@@ -1,7 +1,9 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework import status
 from django.contrib.auth import get_user_model
 from .models import Usuario
 from .serializers import RegistroUsuarioSerializer, PerfilUsuarioSerializer, UsuarioSerializer
@@ -24,6 +26,17 @@ class UsuarioViewSet(ModelViewSet):
         serializer = self.get_serializer(request.user)
         return Response(serializer.data)
 
+
+class RegistroUsuarioView(APIView):
+    #permission_classes = [AllowAny]
+    def post(self, request):
+        serializer = RegistroUsuarioSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"mensaje": "Usuario creado correctamente."}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+"""
 class RegistroUsuarioViewSet(ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = RegistroUsuarioSerializer
@@ -31,7 +44,7 @@ class RegistroUsuarioViewSet(ModelViewSet):
     def perform_create(self, serializer):
         user = serializer.save()
         user.set_password(user.password)
-        user.save()
+        user.save()"""
 
 class PerfilUsuarioViewSet(ModelViewSet):
     queryset = Usuario.objects.all()

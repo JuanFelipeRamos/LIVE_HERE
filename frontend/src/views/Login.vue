@@ -26,7 +26,7 @@ const login = async () => {
     })
     localStorage.setItem('user', JSON.stringify(userResponse.data))
 
-    alert('Inicio de sesión exitoso')
+    //alert('Inicio de sesión exitoso')
     router.push('/') // Redirigir a la página de inicio
   } catch (error) {
     alert('Error al iniciar sesión')
@@ -43,8 +43,8 @@ const login = async () => {
       </div>
       <h2>INICIA SESIÓN</h2>
       <form @submit.prevent="login">
-        <label for="username">Nombre de usuario o correo electrónico</label>
-        <input v-model="usuario.username" type="text" id="username" required placeholder="sucorreo@gmail.com" />
+        <label for="username">Nombre de usuario</label>
+        <input v-model="usuario.username" type="text" id="username" required />
 
         <label for="password">Contraseña</label>
         <input v-model="usuario.password" type="password" id="password" required />
