@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
+import os # Para manejar rutas de archivos y carpetas de manera compatible con todos los sistemas operativos
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -143,3 +145,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/' # URL pública desde la que los usuarios podrán acceder a los archivos subidos
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Carpeta del proyecto donde se guardarán físicamente los archivos subidos

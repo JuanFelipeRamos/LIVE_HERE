@@ -3,6 +3,7 @@ import Home from '../views/Home.vue';
 import Navbar from '../components/NavbarComp.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
+import AlertComponent from '../components/AlertComponent.vue';
 
 const routes = [
   {
@@ -23,6 +24,11 @@ const routes = [
   {
     path: '/Register',
     component: Register
+  },
+
+  {
+    path: '/AlertComponent',
+    component: AlertComponent
   },
     
 ];

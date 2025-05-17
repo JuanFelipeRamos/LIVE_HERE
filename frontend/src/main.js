@@ -5,10 +5,10 @@ import router from './router';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; //Librería para íconos
 // Importar los íconos que se van a usar
-import { faSearch, faUser, faBars } from '@fortawesome/free-solid-svg-icons'; //Icono de búsqueda
+import { faSearch, faUser, faArrowLeft, faBars, faCircleCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 // Agregar los íconos a la librería
-library.add(faSearch, faUser, faBars);
+library.add(faSearch, faUser, faArrowLeft, faBars, faCircleCheck, faXmark);
 
 const app = createApp(App);
 app.component('font-awesome-icon', FontAwesomeIcon);

@@ -9,6 +9,7 @@ const usuario = ref({
   password: ''
 })
 
+
 const login = async () => {
   try {
     const response = await api.post('/token/', {
@@ -27,6 +28,8 @@ const login = async () => {
     localStorage.setItem('user', JSON.stringify(userResponse.data))
 
     //alert('Inicio de sesión exitoso')
+    console.log('Inicio de sesión exitoso')
+    localStorage.setItem('loginSuccess', 'true')
     router.push('/') // Redirigir a la página de inicio
   } catch (error) {
     alert('Error al iniciar sesión')

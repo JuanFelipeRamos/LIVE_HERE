@@ -14,8 +14,28 @@ function logout() {
   localStorage.removeItem('access')
   localStorage.removeItem('refresh')
   isLoggedIn.value = false
+  closeModal()
   router.push('/')
+  console.log('Sesión cerrada con éxito')
 }
+
+// Para el menú modal
+const showModal = ref(false)
+
+function openModal() {
+  showModal.value = true
+}
+
+function closeModal() {
+  showModal.value = false
+}
+
+function handleOverlayClick(e) {
+  if (e.target.classList.contains('modal-overlay')) {
+    closeModal()
+  }
+}
+
 </script>
 
 <template>
@@ -49,10 +69,21 @@ function logout() {
           </router-link>
         </li>
       </ul>
-
-      <!-- Si SÍ está logueado -->
-      <div class="middle-link" v-else>
-        <a href="#" @click="logout">CERRAR SESIÓN</a>
+      <div class="menu-wrapper" v-else>
+        <font-awesome-icon icon="bars" class="menu-icon" @click="openModal" />
+      </div>
+      
+      <!-- Modal lateral -->
+      <div v-if="showModal" class="modal-overlay" @click="handleOverlayClick">
+        <div class="modal-menu">
+          <p class="volver" @click="closeModal">
+            <font-awesome-icon :icon="['fas', 'arrow-left']" /> Volver
+          </p>
+          <ul>
+            <li><a href="#">Ver perfil</a></li>
+            <li><a href="#" @click="logout">Cerrar sesión</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>
@@ -136,7 +167,8 @@ function logout() {
 
 .middle-link {
   flex: 1;
-  text-align: center;
+  text-align: right;
+  padding-right: 20px;
 }
 
 .middle-link a,
@@ -219,5 +251,92 @@ input {
   }
 }
 
+.menu-icon {
+  font-size: 32px;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+  margin: 0;
+  padding: 0 10px 0 0;
+}
+
+.menu-icon:hover {
+  color: #4A90E2;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 999;
+}
+
+.modal-menu {
+  background-color: #101349;
+  color: white;
+  width: 250px;
+  height: 100%;
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+
+  transform: translateX(100%);
+  animation: slideIn 0.3s forwards;
+}
+
+@keyframes slideIn {
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.modal-menu ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.modal-menu ul li a {
+  display: block;
+  color: white;
+  padding: 10px 0;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.modal-menu ul li a:hover {
+  color: #4A90E2;
+}
+
+.modal-menu ul li a:active {
+  color: #9dc2ff;
+}
+
+.volver {
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-bottom: 1px solid white;
+  padding-bottom: 5px;
+}
+
+.volver:hover {
+  color: #4A90E2;
+}
+
+.volver:active {
+  color: #9dc2ff;
+}
+
+.menu-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+  padding-right: 0px;
+}
 
 </style>

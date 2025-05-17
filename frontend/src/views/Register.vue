@@ -29,7 +29,7 @@ const registrarUsuario = async (e) => {
       password: ''
     }
 
-    router.push('/Login') // Redirigir a la página de inicio de sesión
+    router.push('/Login') // Redirigir a la página de para añadir foto de perfil
   } catch (error) {
     alert('Ocurrió un error al registrar el usuario.')
     console.error('Error al registrar:', error)
@@ -47,7 +47,7 @@ const registrarUsuario = async (e) => {
       </div>
       <h2>REGÍSTRATE</h2>
       <form @submit.prevent="registrarUsuario">
-        <label for="username">Nombre de usuario</label>
+        <label for="username">Nombre de usuario <strong>(No use espacios)</strong></label>
         <input v-model="usuario.username" type="text" id="username" required />
 
         <div class="name-row">
