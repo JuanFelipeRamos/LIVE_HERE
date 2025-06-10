@@ -4,6 +4,7 @@ import Navbar from '../components/NavbarComp.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 import AlertComponent from '../components/AlertComponent.vue';
+import VerPerfil from '../views/VerPerfil.vue';
 
 const routes = [
   {
@@ -28,7 +29,13 @@ const routes = [
 
   {
     path: '/AlertComponent',
-    component: AlertComponent
+    component: AlertComponent,
+    props: true,
+  },
+
+  {
+    path: '/VerPerfil',
+    component: VerPerfil
   },
     
 ];

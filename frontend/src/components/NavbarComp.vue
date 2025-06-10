@@ -39,10 +39,13 @@ function handleOverlayClick(e) {
 </script>
 
 <template>
+  <div>
   <nav class="navbar">
     <div class="container">
       <div class="logo">
-        <img src="/public/Logo_LIVE_HERE.png" alt="Logo LIVE HERE" class="imgLogo">
+        <router-link to="/">
+          <img src="/public/Logo_LIVE_HERE.png" alt="Logo LIVE HERE" class="imgLogo">
+        </router-link>
       </div>
       <div class="search-bar">
         <input type="text" placeholder="Encuentra casas, apartamentos y más" />
@@ -80,13 +83,15 @@ function handleOverlayClick(e) {
             <font-awesome-icon :icon="['fas', 'arrow-left']" /> Volver
           </p>
           <ul>
-            <li><a href="#">Ver perfil</a></li>
+            <li><router-link to="/VerPerfil"><a>Ver perfil</a></router-link></li>
             <li><a href="#" @click="logout">Cerrar sesión</a></li>
           </ul>
         </div>
       </div>
     </div>
   </nav>
+  <div class="navbar-spacer"></div>
+  </div>
 </template>
 
 
@@ -204,8 +209,18 @@ input {
   padding: 12px 35px 12px 10px;
 }
 
+.navbar-spacer {
+  display: none;
+}
+
 /* Responsivo */
 @media (max-width: 1024px) {
+
+  .navbar-spacer {
+    display: block;
+    height: 130px; /* El espacio que deseas debajo del navbar */
+  }
+
   .container {
     flex-direction: column;
     text-align: center;
@@ -228,7 +243,14 @@ input {
   }
 }
 
+
 @media (max-width: 768px) {
+
+  .navbar-spacer {
+    display: block;
+    height: 130px; /* El espacio que deseas debajo del navbar */
+  }
+
   .container {
     flex-direction: column;
     text-align: center;
@@ -252,7 +274,7 @@ input {
 }
 
 .menu-icon {
-  font-size: 32px;
+  font-size: 28px;
   color: white;
   cursor: pointer;
   transition: color 0.3s ease-in-out;

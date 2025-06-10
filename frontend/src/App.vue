@@ -35,7 +35,7 @@ watch(route, (newRoute) => {
 body {
   background-color: white;
   font-family: Arial, Helvetica, sans-serif;
-  height: 100vh;
+  height: 100;
   margin: 0;
   padding: 0;
   color: black;

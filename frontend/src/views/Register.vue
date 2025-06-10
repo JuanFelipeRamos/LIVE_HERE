@@ -29,7 +29,7 @@ const registrarUsuario = async (e) => {
       password: ''
     }
 
-    router.push('/Login') // Redirigir a la página de para añadir foto de perfil
+    router.push('/Login')
   } catch (error) {
     alert('Ocurrió un error al registrar el usuario.')
     console.error('Error al registrar:', error)

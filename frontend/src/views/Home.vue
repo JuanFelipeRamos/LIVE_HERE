@@ -18,7 +18,7 @@ onMounted(() => {
 
 <template>
     <div>
-        <AlertComponent v-if="showAlert" />
+        <AlertComponent v-if="showAlert" title="Inicio de sesión exitoso" message="¡Bienvenido/a a Live Here!" />
         <Navbar />
     </div>
   

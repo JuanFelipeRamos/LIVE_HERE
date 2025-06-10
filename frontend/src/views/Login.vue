@@ -20,7 +20,7 @@ const login = async () => {
     localStorage.setItem('access', response.data.access)
     localStorage.setItem('refresh', response.data.refresh)
 
-    const userResponse = await api.get('/usuarios/me/', {
+    const userResponse = await api.get('/usuario/perfil/', {
       headers: {
         Authorization: `Bearer ${response.data.access}`
       }

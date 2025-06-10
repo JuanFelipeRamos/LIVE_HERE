@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
+import pymysql
+pymysql.install_as_MySQLdb()
+
 import os # Para manejar rutas de archivos y carpetas de manera compatible con todos los sistemas operativos
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
 
     #Aplicaciones instaladas:
     'usuarios',
+    'inmuebles',
 
     #Otras aplicaciones:
     'rest_framework',
@@ -95,7 +99,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'live_here_db',
         "USER": 'root',
         "PASSWORD": 'juan25sql',

@@ -3,6 +3,11 @@ import { ref } from 'vue'
 
 const visible = ref(true)
 
+defineProps({
+  title: String,
+  message: String
+})
+
 </script>
 
 
@@ -10,8 +15,8 @@ const visible = ref(true)
   <div class="alert" v-if="visible">
     <font-awesome-icon icon="circle-check" class="alert-icon" />
     <div class="alert-content">
-      <strong class="alert-title">Inicio de sesión exitoso</strong>
-      <p class="alert-message">¡Bienvenido/a a Live Here!</p>
+      <strong class="alert-title">{{ title }}</strong>
+      <p class="alert-message">{{ message }}</p>
     </div>
     <button class="alert-close" @click="visible = false" aria-label="Cerrar">
       <font-awesome-icon icon="xmark" />
@@ -25,10 +30,10 @@ const visible = ref(true)
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  border: 1px solid #d1d5db;
+  border: 1px solid #808080;
   background-color: #fff;
   padding: 16px;
-  border-radius: 8px;
+  border-radius: 3px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 10px;

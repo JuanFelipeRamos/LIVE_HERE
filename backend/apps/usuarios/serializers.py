@@ -1,12 +1,6 @@
 from rest_framework import serializers
 from .models import Usuario
 
-#Serializer para gestionar usuarios en el admin
-class UsuarioSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Usuario
-        fields = '__all__'
-
 #Para registrar un nuevo usuario
 class RegistroUsuarioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,8 +16,16 @@ class RegistroUsuarioSerializer(serializers.ModelSerializer):
         return user
 
 
-#Para visualizar el perfil del usuario
-class PerfilUsuarioSerializer(serializers.ModelSerializer):
+#Para listar todos los usuarios
+class ListUsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ['id', 'img_profile', 'username', 'first_name', 'last_name', 'email', 'telefono']
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'telefono', 'img_profile']
+
+
+#Para editar los datos del usuarios (menos la contraseña y el username)
+class EditUsuarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ['username', 'first_name', 'last_name', 'email', 'telefono', 'img_profile']
+        read_only_fields = ['username']
