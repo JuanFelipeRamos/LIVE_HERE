@@ -1,32 +1,19 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import api from '../services/axios';
+import { verPerfil } from '../services/users'
 import Navbar from '../components/NavbarComp.vue';
 
 const user = ref(null)
 
-const fetchUserProfile = async () => {
+onMounted(async () => {
   try {
-    const token = localStorage.getItem('access')
-    if (!token) {
-      console.error('No hay token de acceso. Redirige al login.')
-      return
-    }
-
-    const response = await api.get('/usuario/perfil/', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-
-    user.value = response.data
+    const datosUser = await verPerfil();
+    user.value = datosUser;
+    console.log("Datos del usuario:", user.value)
+    console.log(user.img_profile)
   } catch (error) {
-    console.error('Error al obtener el perfil del usuario:', error)
+    console.log("Error al obtener los datos.", error)
   }
-}
-
-onMounted(() => {
-  fetchUserProfile()
 })
 
 </script>
@@ -59,7 +46,7 @@ onMounted(() => {
           </div>
 
           <div class="buttons">
-            <button class="action-button">Editar perfil</button>
+            <router-link to="EditarPerfil"><button class="action-button">Editar perfil</button></router-link>
             <button class="action-button">Favoritos</button>
           </div>
         </div>
@@ -197,4 +184,14 @@ onMounted(() => {
     width: 100%;
   }
 }
+
+.profile-picture {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  margin-bottom: 1rem;
+}
+
 </style>

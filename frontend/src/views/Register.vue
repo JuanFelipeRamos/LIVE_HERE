@@ -17,7 +17,7 @@ const registrarUsuario = async (e) => {
   e.preventDefault()
 
   try {
-    const response = await api.post('/registro/', usuario.value)
+    const response = await api.post('/usuarios/registro/', usuario.value)
     alert('Registro de usuario exitoso, ya puedes iniciar sesión.')
 
     usuario.value = {

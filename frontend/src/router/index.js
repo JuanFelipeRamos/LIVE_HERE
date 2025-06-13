@@ -4,7 +4,9 @@ import Navbar from '../components/NavbarComp.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 import AlertComponent from '../components/AlertComponent.vue';
+import FileComponent from '../components/FileComponent.vue';
 import VerPerfil from '../views/VerPerfil.vue';
+import EditarPerfil from '../views/EditarPerfil.vue';
 
 const routes = [
   {
@@ -34,8 +36,19 @@ const routes = [
   },
 
   {
+    path: '/FileComponent',
+    component: FileComponent,
+    //props: true,
+  },
+
+  {
     path: '/VerPerfil',
     component: VerPerfil
+  },
+
+  {
+    path: '/EditarPerfil',
+    component: EditarPerfil
   },
     
 ];

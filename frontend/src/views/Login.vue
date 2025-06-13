@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router' // Para la navegación entre rutas
+import { useRouter } from 'vue-router'
 import api from '../services/axios'
 
 const router = useRouter()
@@ -9,7 +9,6 @@ const usuario = ref({
   password: ''
 })
 
-
 const login = async () => {
   try {
     const response = await api.post('/token/', {
@@ -17,20 +16,14 @@ const login = async () => {
       password: usuario.value.password,
     })
 
+    // Guardar tokens en localStorage
     localStorage.setItem('access', response.data.access)
     localStorage.setItem('refresh', response.data.refresh)
 
-    const userResponse = await api.get('/usuario/perfil/', {
-      headers: {
-        Authorization: `Bearer ${response.data.access}`
-      }
-    })
-    localStorage.setItem('user', JSON.stringify(userResponse.data))
-
-    //alert('Inicio de sesión exitoso')
     console.log('Inicio de sesión exitoso')
-    localStorage.setItem('loginSuccess', 'true')
-    router.push('/') // Redirigir a la página de inicio
+    localStorage.setItem('loginSuccess', 'true') // Para mostrar el compomente AlertComponent.vue
+    router.push('/') // Redirige a la página de inicio
+
   } catch (error) {
     alert('Error al iniciar sesión')
     console.error(error)

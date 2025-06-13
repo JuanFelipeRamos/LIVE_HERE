@@ -4,7 +4,7 @@ from django.db import models
 
 class Usuario(AbstractUser):
     telefono = models.CharField(max_length=15)
-    img_profile = models.ImageField(upload_to="profile_pics/", default="default-avatar-profile.jpg")
+    img_profile = models.ImageField(upload_to="", default="default-avatar-profile.jpg")
     """
     Campos que trae este modelo por defecto:
     username
