@@ -18,7 +18,13 @@ const registrarUsuario = async (e) => {
 
   try {
     const response = await api.post('/usuarios/registro/', usuario.value)
-    alert('Registro de usuario exitoso, ya puedes iniciar sesión.')
+
+    const email = usuario.value.email
+    await api.post('/usuarios/msg_activar_cuenta/', {
+      email: email
+    })
+
+    //alert('Registro de usuario exitoso, ya puedes iniciar sesión.')
 
     usuario.value = {
       username: '',
@@ -29,7 +35,7 @@ const registrarUsuario = async (e) => {
       password: ''
     }
 
-    router.push('/Login')
+    router.push('/MsgActivarCuenta')
   } catch (error) {
     alert('Ocurrió un error al registrar el usuario.')
     console.error('Error al registrar:', error)

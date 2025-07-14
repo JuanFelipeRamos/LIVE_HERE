@@ -7,6 +7,7 @@ import AlertComponent from '../components/AlertComponent.vue';
 import FileComponent from '../components/FileComponent.vue';
 import VerPerfil from '../views/VerPerfil.vue';
 import EditarPerfil from '../views/EditarPerfil.vue';
+import MsgActivarCuenta from '../components/MsgActivarCuenta.vue';
 
 const routes = [
   {
@@ -49,6 +50,11 @@ const routes = [
   {
     path: '/EditarPerfil',
     component: EditarPerfil
+  },
+
+  {
+    path: '/MsgActivarCuenta',
+    component: MsgActivarCuenta
   },
     
 ];

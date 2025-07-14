@@ -1,6 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import RegistroUsuarioView, user_profile, EditUsuarioView, ListaUsuariosView
+from .views import RegistroUsuarioView, user_profile, EditUsuarioView, ListaUsuariosView, MsgActivarCuentaView
+from .users import activar_cuenta
 
 router = DefaultRouter()
 
@@ -10,4 +11,10 @@ urlpatterns = [
     path('lista/', ListaUsuariosView.as_view(), name='listar-usuarios'),
     path('perfil/', user_profile, name='perfil-usuario'),
     path('edit/', EditUsuarioView.as_view(), name='edit-usuario'),
+
+    # Para envío de emails sobre activar cuenta
+    path("msg_activar_cuenta/", MsgActivarCuentaView.as_view(), name="mensage-activar-cuenta"),
+
+    # Para activar la cuenta del usuario
+    path('activar_cuenta/<uidb64>/<token>/', activar_cuenta, name='activar-cuenta'),
 ]

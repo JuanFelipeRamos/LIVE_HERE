@@ -84,7 +84,7 @@ function handleOverlayClick(e) {
           </p>
           <ul>
             <li><router-link to="/VerPerfil"><a>Ver perfil</a></router-link></li>
-            <li><a href="#" @click="logout">Cerrar sesión</a></li>
+            <li><a class="cerrar" @click="logout">Cerrar sesión</a></li>
           </ul>
         </div>
       </div>
@@ -344,6 +344,10 @@ input {
   gap: 5px;
   border-bottom: 1px solid white;
   padding-bottom: 5px;
+}
+
+.cerrar {
+  cursor: pointer;
 }
 
 .volver:hover {

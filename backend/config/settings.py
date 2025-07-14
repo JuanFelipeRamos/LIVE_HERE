@@ -17,6 +17,8 @@ pymysql.install_as_MySQLdb()
 
 import os # Para manejar rutas de archivos y carpetas de manera compatible con todos los sistemas operativos
 
+from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -152,3 +154,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/' # URL pública desde la que los usuarios podrán acceder a los archivos subidos
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Carpeta del proyecto donde se guardarán físicamente los archivos subidos
+
+# Configuración para el envío de emails
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.googlemail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('USER_MAIL')
+EMAIL_HOST_PASSWORD = config('USER_MAIL_PASSWORD')
+EMAIL_USE_TLS = True
