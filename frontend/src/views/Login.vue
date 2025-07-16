@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '../services/axios'
+import AlertComponent from '../components/AlertComponent.vue'
 
 const router = useRouter()
 const usuario = ref({
@@ -29,10 +30,27 @@ const login = async () => {
     console.error(error)
   }
 }
+
+// Mostrar modal de alerta
+const cuentaActivada = ref(false)
+const mostrarModal = ref(false)
+
+onMounted(() => {
+  const urlParams = new URLSearchParams(window.location.search)
+  if (urlParams.get('cuenta-activada') === 'true') {
+    mostrarModal.value = true
+    setTimeout(() => mostrarModal.value = false, 3000)
+  }
+})
+
 </script>
 
 <template>
   <div class="login-container">
+    <div>
+        <AlertComponent v-if="mostrarModal" title="Correo electrónico verificado" message="¡Ya puedes iniciar sesión!" />
+        <Navbar />
+    </div>
     <div class="login-box">
       <div class="icon-container">
         <font-awesome-icon :icon="['fas', 'user']" class="user-icon" />

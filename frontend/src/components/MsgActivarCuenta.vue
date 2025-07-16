@@ -2,14 +2,18 @@
 </script>
 
 <template>
-  <div class="login-container">
-    <div class="login-box">
+  <div class="msg-container">
+    <div class="msg-box">
       <div class="icon-container">
         <font-awesome-icon :icon="['fas', 'envelope']" class="user-icon" />
       </div>
       <h2>REVISA TU CORREO ELECTRÓNICO</h2>
       <p>Tu cuenta se creó exitosamente, ahora debes activarla dando click en el enlace que te enviamos a tu correo electrónico. De lo contrario, no podrás iniciar sesión.</p>
-      <p class="register-text"><router-link to="Register">Volver</router-link></p>
+      <div class="register-text">
+        <router-link to="Register">
+          <a class="register-link">Volver</a>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -25,7 +29,7 @@ html, body {
   flex-direction: column;
 }
 
-.login-container {
+.msg-container {
   flex-grow: 1;
   display: flex;
   justify-content: center;
@@ -35,7 +39,7 @@ html, body {
 }
 
 
-.login-box {
+.msg-box {
   background-color: #1a1a50;
   padding: 60px 50px;
   border-radius: 15px;
@@ -72,43 +76,6 @@ h2 {
   align-items: center;
   gap: 5px;
   cursor: pointer;
-}
-
-/* 🔹 Enlaces de opciones */
-.check {
-  text-decoration: none;
-  color: white;
-  transition: color 0.3s ease-in-out;
-}
-
-.check:hover {
-  color: #82b1ff;
-}
-
-.check:active {
-  color: white;
-}
-
-/* 🔹 Botón de login */
-.login-btn {
-  background-color: #2c2c6c;
-  color: white;
-  font-size: 16px;
-  padding: 10px;
-  width: 100%;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.login-btn:hover {
-  background-color: #4a90e2;
-}
-
-.login-btn:active {
-  background-color: #2c2c6c;
 }
 
 /* 🔹 Enlace de registro */

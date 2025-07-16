@@ -6,7 +6,7 @@ import { useRoute } from 'vue-router';
 const route = useRoute();
 
 watch(route, (newRoute) => {
-  const darkRoutes = ['/Login', '/Register', '/ImgRegister']; // Rutas que tendrán fondo oscuro
+  const darkRoutes = ['/Login', '/Register', '/ImgRegister', '/MsgActivarCuenta']; // Rutas que tendrán fondo oscuro
 
   if (darkRoutes.includes(newRoute.path)) {
     document.body.style.backgroundColor = '#0c0c24';
