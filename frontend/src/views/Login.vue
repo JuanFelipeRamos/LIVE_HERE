@@ -67,9 +67,9 @@ onMounted(() => {
           <label class="checkbox-container">
             <input type="checkbox" />
             <span class="checkmark"></span>
-            <span class="check">Recordar contraseña</span>
+            <span class="check">Mantener sesión iniciada</span>
           </label>
-          <a href="#" class="forgot-password">¿Olvidó su contraseña?</a>
+          <router-link to="RecuperarPwd"><a class="forgot-password">¿Olvidó su contraseña?</a></router-link>
         </div>
 
         <button class="login-btn">Continuar</button>

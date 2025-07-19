@@ -8,6 +8,7 @@ import FileComponent from '../components/FileComponent.vue';
 import VerPerfil from '../views/VerPerfil.vue';
 import EditarPerfil from '../views/EditarPerfil.vue';
 import MsgActivarCuenta from '../components/MsgActivarCuenta.vue';
+import RecuperarPwd from '../views/RecuperarPwd.vue';
 
 const routes = [
   {
@@ -55,6 +56,11 @@ const routes = [
   {
     path: '/MsgActivarCuenta',
     component: MsgActivarCuenta
+  },
+
+  {
+    path: '/RecuperarPwd',
+    component: RecuperarPwd
   },
     
 ];

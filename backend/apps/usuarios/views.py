@@ -1,4 +1,3 @@
-import requests
 from rest_framework.response import Response
 from rest_framework import status
 from django.urls import reverse
@@ -116,6 +115,49 @@ class MsgActivarCuentaView(APIView):
             else:
                 return Response({
                     "error": "No se pudo enviar el correo"
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except Exception as e:
+            print(f"Error al enviar el correo: {str(e)}")
+            return Response({
+                "error": "Error inesperado al intentar enviar el correo"
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+# Enviar mensaje (por email) para recuperar contraseña (estableciendo una nueva)
+class MsgRecuperarPwdView(APIView):
+    def post(self, request):
+        datos_usuario = obtener_usuario(request)
+
+        if not datos_usuario:
+            return Response({
+                "error": "Usuario no encontrado"
+            }, status=status.HTTP_404_NOT_FOUND)
+
+        verification_url = f"http://localhost:5173/AddNewPwd?uidb64={datos_usuario['uid']}&token={datos_usuario['token']}"
+
+        email = EmailMessage(
+            subject = "Recupera tu contraseña de Live Here",
+            body = f"""
+            <h1>Hola, {datos_usuario['first_name']},</h1>
+            <p>Has solicitado recuperar tu contraseña. Haz clic en el siguiente enlace para ingresar una nueva contraseña:</p>
+            <a href="{verification_url}">Ingresar nueva contraseña</a>
+            <p><strong>NOTA:</strong> Si no fuiste tú quien solicitó esta acción, por favor ignora este mensaje.</p>
+            """,
+            from_email = settings.EMAIL_HOST_USER,
+            to = [datos_usuario['email_user']]
+        )
+        email.content_subtype = "html"
+
+        try:
+            respuesta = email.send()
+
+            if respuesta == 1:
+                return Response({
+                    "message": "email enviado exitosamente"
+                }, status=status.HTTP_200_OK)
+            else:
+                return Response({
+                    "error": "error al enviar el email"
                 }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             print(f"Error al enviar el correo: {str(e)}")
