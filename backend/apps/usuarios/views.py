@@ -94,8 +94,8 @@ class MsgActivarCuentaView(APIView):
         email = EmailMessage(
             subject = "Verifica tu correo en Live Here",
             body = f"""
-            <h1>Hola {datos_usuario['first_name']},</h1>
-            <p>Gracias por registrarte en Live Here. Haz clic en el siguiente enlace para verificar tu correo y así poder iniciar sesión:</p>
+            <h1>Hola {datos_usuario['first_name']}</h1>
+            <p>Te has registrado exitosamente en Live Here. Haz clic en el siguiente enlace para verificar tu correo y así poder iniciar sesión:</p>
             <a href="{verification_url}">Verificar correo</a>
             <p><strong>NOTA:</strong> Si no fuiste tú quien realizó el registro, por favor ignora este mensaje.</p>
             """,
@@ -138,7 +138,7 @@ class MsgRecuperarPwdView(APIView):
         email = EmailMessage(
             subject = "Recupera tu contraseña de Live Here",
             body = f"""
-            <h1>Hola, {datos_usuario['first_name']},</h1>
+            <h1>Hola {datos_usuario['first_name']}</h1>
             <p>Has solicitado recuperar tu contraseña. Haz clic en el siguiente enlace para ingresar una nueva contraseña:</p>
             <a href="{verification_url}">Ingresar nueva contraseña</a>
             <p><strong>NOTA:</strong> Si no fuiste tú quien solicitó esta acción, por favor ignora este mensaje.</p>

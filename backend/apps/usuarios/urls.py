@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import RegistroUsuarioView, user_profile, EditUsuarioView, ListaUsuariosView, MsgActivarCuentaView, MsgRecuperarPwdView
-from .users import activar_cuenta
+from .users import activar_cuenta, recuperar_pwd
 
 router = DefaultRouter()
 
@@ -20,4 +20,7 @@ urlpatterns = [
 
     # Para envío de emails sobre recuperar contraseña
     path("msg_recuperar_pwd/", MsgRecuperarPwdView.as_view(), name="mensage-recuperar-pwd"),
+
+    # Para recuperar contraseña del usuario
+    path("recuperar_pwd/<uidb64>/<token>/", recuperar_pwd, name="recuperar-password"),
 ]

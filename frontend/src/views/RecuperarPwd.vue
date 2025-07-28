@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from 'vue'
-//import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import api from '../services/axios';
 
-//const router = useRouter()
+const router = useRouter()
 const usuario = ref({
   email: ''
 })
@@ -19,9 +19,7 @@ const recuperarPassword = async (e) => {
 
     usuario.value.email = ''
 
-    alert('correo enviado')
-
-    //router.push('/msgrecuperarpdw')
+    router.push('/MsgRecuperarPwd')
   } catch (error) {
     alert('Ocurrió un error al solicitar la recuperación de contraseña.')
     console.error('Error:', error)

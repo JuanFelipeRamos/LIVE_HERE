@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '../services/axios'
+import { usePasswordToggle } from '../services/verPassword'
 import AlertComponent from '../components/AlertComponent.vue'
 
 const router = useRouter()
@@ -32,23 +33,32 @@ const login = async () => {
 }
 
 // Mostrar modal de alerta
-const cuentaActivada = ref(false)
-const mostrarModal = ref(false)
+const mostrarModal1 = ref(false)
+const mostrarModal2 = ref(false)
 
 onMounted(() => {
   const urlParams = new URLSearchParams(window.location.search)
   if (urlParams.get('cuenta-activada') === 'true') {
-    mostrarModal.value = true
-    setTimeout(() => mostrarModal.value = false, 3000)
+    mostrarModal1.value = true
+    setTimeout(() => mostrarModal1.value = false, 3000)
+  }
+
+  if (urlParams.get('password-recuperada') === 'true') {
+    mostrarModal2.value = true
+    setTimeout(() => mostrarModal2.value = false, 3000)
   }
 })
+
+// Para mostrar o no el texto que se escribe en el input de contraseña
+const { mostrarPassword, togglePassword } = usePasswordToggle()
 
 </script>
 
 <template>
   <div class="login-container">
     <div>
-        <AlertComponent v-if="mostrarModal" title="Correo electrónico verificado" message="¡Ya puedes iniciar sesión!" />
+        <AlertComponent v-if="mostrarModal1" title="Correo electrónico verificado" message="¡Ya puedes iniciar sesión!" />
+        <AlertComponent v-if="mostrarModal2" title="Contraseña recuperada con éxito" message="¡Ya puedes iniciar sesión!" />
         <Navbar />
     </div>
     <div class="login-box">
@@ -60,8 +70,19 @@ onMounted(() => {
         <label for="username">Nombre de usuario</label>
         <input v-model="usuario.username" type="text" id="username" required />
 
-        <label for="password">Contraseña</label>
-        <input v-model="usuario.password" type="password" id="password" required />
+        <!--<label for="password">Contraseña</label>
+        <input v-model="usuario.password" :type="mostrarPassword ? 'text' : 'password'" id="password" required />-->
+
+        <div class="input-password-container">
+          <label for="password">Contraseña</label>
+          <input
+            v-model="usuario.password"
+            :type="mostrarPassword ? 'text' : 'password'"
+          />
+          <span class="material-symbols-outlined icono-ojo" @click="togglePassword">
+            {{ mostrarPassword ? 'visibility' : 'visibility_off' }}
+          </span>
+        </div>
 
         <div class="options">
           <label class="checkbox-container">
@@ -157,6 +178,24 @@ onMounted(() => {
 
   #username {
     margin-bottom: 10px;
+  }
+
+  .input-password-container {
+  position: relative;
+  }
+  
+  .input-password-container input {
+    padding-right: 40px; /* espacio para el ícono */
+  }
+
+  .icono-ojo {
+    position: absolute;
+    right: 10px;
+    top: 72%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    font-size: 24px;
   }
   
   /* 🔹 Opciones debajo del input de contraseña */
