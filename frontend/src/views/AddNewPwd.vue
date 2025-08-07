@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '../services/axios'
+import { usePasswordToggle } from '../services/verPassword'
 
 const router = useRouter()
 const route = useRoute()
@@ -43,6 +44,9 @@ const addNewPassword = async () => {
   }
 }
 
+// Para mostrar o no el texto que se escribe en el input de contraseña
+const { mostrarPassword, togglePassword } = usePasswordToggle()
+
 </script>
 
 <template>
@@ -53,11 +57,27 @@ const addNewPassword = async () => {
       </div>
       <h2>CREA UNA NUEVA CONTRASEÑA</h2>
       <form @submit.prevent="addNewPassword">
-        <label for="username">Nueva contraseña</label>
-        <input v-model="usuario.password" type="password" id="username" required />
+        <div class="input-password-container">
+          <label for="password">Nueva contraseña</label>
+          <input
+            v-model="usuario.password"
+            :type="mostrarPassword ? 'text' : 'password'"
+          />
+          <span class="material-symbols-outlined icono-ojo" @click="togglePassword">
+            {{ mostrarPassword ? 'visibility' : 'visibility_off' }}
+          </span>
+        </div>
 
-        <label for="password">Confirmar contraseña</label>
-        <input v-model="usuario.passwordConfirmada" type="password" id="password" required />
+        <div class="input-password-container">
+          <label for="password">Confirmar contraseña</label>
+          <input
+            v-model="usuario.passwordConfirmada"
+            :type="mostrarPassword ? 'text' : 'password'"
+          />
+          <span class="material-symbols-outlined icono-ojo" @click="togglePassword">
+            {{ mostrarPassword ? 'visibility' : 'visibility_off' }}
+          </span>
+        </div>
 
         <button class="login-btn">Continuar</button>
       </form>
@@ -143,6 +163,24 @@ const addNewPassword = async () => {
 
   #username {
     margin-bottom: 10px;
+  }
+
+  .input-password-container {
+    position: relative;
+  }
+  
+  .input-password-container input {
+    padding-right: 40px; /* espacio para el ícono */
+  } 
+
+  .icono-ojo {
+    position: absolute;
+    right: 10px;
+    top: 72%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    font-size: 24px;
   }
   
   /* 🔹 Botón de login */

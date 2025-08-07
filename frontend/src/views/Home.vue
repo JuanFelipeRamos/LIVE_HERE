@@ -6,9 +6,10 @@ import AlertComponent from '../components/AlertComponent.vue'
 const showAlert = ref(false)
 
 onMounted(() => {
-  if (localStorage.getItem('loginSuccess') === 'true') {
+  if (localStorage.getItem('loginSuccess') === 'true' || sessionStorage.getItem('loginSuccess') === 'true') {
     showAlert.value = true
     localStorage.removeItem('loginSuccess')
+    sessionStorage.removeItem('loginSuccess')
     setTimeout(() => showAlert.value = false, 3000)
   }
 })

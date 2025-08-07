@@ -6,7 +6,11 @@ const api = axios.create({
 
 // Interceptor para añadir el token en las solicitudes
 api.interceptors.request.use(config => {
-  const token = localStorage.getItem('access')
+  let token = localStorage.getItem('access')
+
+  if (!token) {
+    token = sessionStorage.getItem('access')
+  }
 
   if (
     token &&
@@ -29,7 +33,13 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
       try {
-        const refresh = localStorage.getItem('refresh')
+        let refresh = localStorage.getItem('refresh')
+        let storageType = 'localStorage'
+
+        if (!refresh) {
+          refresh = sessionStorage.getItem('refresh')
+          storageType = 'sessionStorage'
+        }
 
         // Llama al endpoint para renovar el token
         const res = await axios.post('http://localhost:8000/api/token/refresh/', {
@@ -37,7 +47,12 @@ api.interceptors.response.use(
         })
 
         const newAccessToken = res.data.access
-        localStorage.setItem('access', newAccessToken)
+
+        if (storageType === 'localStorage') {
+          localStorage.setItem('access', newAccessToken)
+        } else {
+          sessionStorage.setItem('access', newAccessToken)
+        }
 
         // Actualiza el token y vuelve a intentar la solicitud original
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
@@ -46,9 +61,15 @@ api.interceptors.response.use(
         console.error('Error al refrescar el token:', refreshError)
 
         // Borra los tokens si falló la renovación y redirige a login
-        localStorage.removeItem('access')
-        localStorage.removeItem('refresh')
-        localStorage.removeItem('user')
+        if (storageType === 'localStorage') {
+          localStorage.removeItem('access')
+          localStorage.removeItem('refresh')
+          localStorage.removeItem('user')
+        } else {
+          sessionStorage.removeItem('access')
+          sessionStorage.removeItem('refresh')
+          sessionStorage.removeItem('user')
+        }
         window.location.href = '/Login'
       }
     }

@@ -11,6 +11,8 @@ const usuario = ref({
   password: ''
 })
 
+const recordarSesion = ref(false)
+
 const login = async () => {
   try {
     const response = await api.post('/token/', {
@@ -19,11 +21,18 @@ const login = async () => {
     })
 
     // Guardar tokens en localStorage
-    localStorage.setItem('access', response.data.access)
-    localStorage.setItem('refresh', response.data.refresh)
+    if (recordarSesion.value) {
+      localStorage.setItem('access', response.data.access)
+      localStorage.setItem('refresh', response.data.refresh)
+      localStorage.setItem('loginSuccess', 'true') // Para mostrar el compomente AlertComponent.vue en Home
+    } else {
+      sessionStorage.setItem('access', response.data.access)
+      sessionStorage.setItem('refresh', response.data.refresh)
+      sessionStorage.setItem('loginSuccess', 'true') // Para mostrar el compomente AlertComponent.vue en Home
+    }
 
     console.log('Inicio de sesión exitoso')
-    localStorage.setItem('loginSuccess', 'true') // Para mostrar el compomente AlertComponent.vue
+    //localStorage.setItem('loginSuccess', 'true') // Para mostrar el compomente AlertComponent.vue
     router.push('/') // Redirige a la página de inicio
 
   } catch (error) {
@@ -70,9 +79,6 @@ const { mostrarPassword, togglePassword } = usePasswordToggle()
         <label for="username">Nombre de usuario</label>
         <input v-model="usuario.username" type="text" id="username" required />
 
-        <!--<label for="password">Contraseña</label>
-        <input v-model="usuario.password" :type="mostrarPassword ? 'text' : 'password'" id="password" required />-->
-
         <div class="input-password-container">
           <label for="password">Contraseña</label>
           <input
@@ -86,7 +92,7 @@ const { mostrarPassword, togglePassword } = usePasswordToggle()
 
         <div class="options">
           <label class="checkbox-container">
-            <input type="checkbox" />
+            <input type="checkbox" v-model="recordarSesion" />
             <span class="checkmark"></span>
             <span class="check">Mantener sesión iniciada</span>
           </label>

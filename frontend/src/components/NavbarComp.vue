@@ -6,13 +6,19 @@ const isLoggedIn = ref(false)
 const router = useRouter()
 
 onMounted(() => {
-  const token = localStorage.getItem('access')
-  isLoggedIn.value = !!token
+  const tokenLocal = localStorage.getItem('access')
+  const tokenSession = sessionStorage.getItem('access')
+
+  isLoggedIn.value = !!tokenLocal || !!tokenSession
 })
 
 function logout() {
   localStorage.removeItem('access')
   localStorage.removeItem('refresh')
+
+  sessionStorage.removeItem('access')
+  sessionStorage.removeItem('refresh')
+
   isLoggedIn.value = false
   closeModal()
   router.push('/')
@@ -351,7 +357,12 @@ input {
 }
 
 .volver:hover {
+  transition: 0.5s;
   color: #4A90E2;
+}
+
+.volver:not(:hover) {
+  transition: 0.5s;
 }
 
 .volver:active {
